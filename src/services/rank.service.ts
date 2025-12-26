@@ -11,7 +11,12 @@ export const findUserRank = async (): Promise<any> => {
         as: "user",
       },
     },
-    { $unwind: "$user" },
+    {
+      $unwind: {
+        path: "$user",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
     {
       $replaceRoot: {
         newRoot: {

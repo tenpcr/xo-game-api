@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 import connectDB from "./config/db";
 import authRoute from "./routes/auth.routes";
@@ -32,7 +34,7 @@ app.get("/gettoken", (req: Request, res: Response) => {
   const payload = {
     userId: 1,
     username: "tonyten",
-    name: "Tony Ten"
+    name: "Tony Ten",
   };
 
   const token = jwt.sign(payload, process.env.SECRET);
